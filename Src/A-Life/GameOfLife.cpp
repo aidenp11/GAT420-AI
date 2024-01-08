@@ -33,23 +33,32 @@ void GameOfLife::Step()
             // XXX
             int weight = 0;
 
-            for (int yOffset = -1; yOffset <= 1; ++yOffset)
-            {
-                for (int xOffset = -1; xOffset <= 1; ++xOffset)
-                {
-                    if (xOffset == 0 && yOffset) continue;
+            //for (int yOffset = -1; yOffset <= 1; ++yOffset)
+            //{
+            //    for (int xOffset = -1; xOffset <= 1; ++xOffset)
+            //    {
+            //        if (xOffset == 0 && yOffset) continue;
 
-                    int neighborX = x + xOffset;
-                    int neighborY = y + yOffset;
+            //        int neighborX = x + xOffset;
+            //        int neighborY = y + yOffset;
 
-                    //if (neighborX >= 0 && neighborX < size.x && neighborY >= 0 && neighborY < size.y)
-                    {
-                        weight += Read<uint8_t>(readBuffer, neighborX, neighborY);
-                    }
-                }
-            }
+            //        //if (neighborX >= 0 && neighborX < size.x && neighborY >= 0 && neighborY < size.y)
+            //        {
+            //            weight += Read<uint8_t>(readBuffer, neighborX, neighborY);
+            //        }
+            //    }
+            //}
 
             //weight -= Read<uint8_t>(readBuffer, x, y);
+
+            weight += Read<uint8_t>(readBuffer, x - 1, y - 1);
+            weight += Read<uint8_t>(readBuffer, x + 0, y - 1);
+            weight += Read<uint8_t>(readBuffer, x + 1, y - 1);
+            weight += Read<uint8_t>(readBuffer, x - 1, y + 0);
+            weight += Read<uint8_t>(readBuffer, x + 1, y + 0);
+            weight += Read<uint8_t>(readBuffer, x - 1, y + 1);
+            weight += Read<uint8_t>(readBuffer, x + 0, y + 1);
+            weight += Read<uint8_t>(readBuffer, x + 1, y + 1);
 
 
             // game of life rules
