@@ -1,6 +1,7 @@
 #include "GameOfLife.h"
 #include "Random.h"
 #include "Texture.h"
+#include <iostream>
 
 bool GameOfLife::Initialize()
 {
@@ -12,8 +13,8 @@ bool GameOfLife::Initialize()
 void GameOfLife::Step() 
 {
     frame++;
-    std::vector<uint8_t>& readBuffer = (frame % 2 == 0) ? bufferA : bufferB;
-    std::vector<uint8_t>& writeBuffer = (frame % 2 == 0) ? bufferB : bufferA;
+    std::vector<uint8_t>& readBuffer = (frame % 2) ? bufferA : bufferB;
+    std::vector<uint8_t>& writeBuffer = (frame % 2) ? bufferB : bufferA;
 
     //std::swap(bufferA, bufferB);
 
@@ -36,17 +37,20 @@ void GameOfLife::Step()
             {
                 for (int xOffset = -1; xOffset <= 1; ++xOffset)
                 {
+                    if (xOffset == 0 && yOffset) continue;
+
                     int neighborX = x + xOffset;
                     int neighborY = y + yOffset;
 
-                    if (neighborX >= 0 && neighborX < size.x && neighborY >= 0 && neighborY < size.y)
+                    //if (neighborX >= 0 && neighborX < size.x && neighborY >= 0 && neighborY < size.y)
                     {
                         weight += Read<uint8_t>(readBuffer, neighborX, neighborY);
                     }
                 }
             }
 
-            weight -= Read<uint8_t>(readBuffer, x, y);
+            //weight -= Read<uint8_t>(readBuffer, x, y);
+
 
             // game of life rules
            // if cell is alive, update
