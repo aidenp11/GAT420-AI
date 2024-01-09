@@ -96,7 +96,7 @@ void GameOfLife::KeyDown(SDL_Keycode keycode)
         // write random 'alive' cells to buffer
         std::vector<uint8_t>& writeBuffer = (frame % 2) ? bufferB : bufferA;
         for (int i = 0; i < writeBuffer.size(); i++)
-            writeBuffer[i] = (random(0, 10) == 0) ? 1 : 0;
+            writeBuffer[i] = (random(0, 1) == 0) ? 1 : 0;
     }
 
 }
